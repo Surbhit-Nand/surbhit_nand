@@ -1,0 +1,89 @@
+/* Harbour ledger design tokens. One source of truth for colour, type, space. */
+:root {
+  --ink: #14232e;
+  --paper: #f7f9f8;
+  --lagoon: #0e7c7b;
+  --lagoon-deep: #0a5a59;
+  --signal: #e8a838;
+  --concrete: #5a6b76;
+  --line: #d8e0e3;
+  --card: #ffffff;
+
+  --display: 'Space Grotesk', system-ui, sans-serif;
+  --body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+
+  --measure: 62ch;
+  --rail: 240px;
+  --radius: 14px 4px 14px 4px;
+
+  color-scheme: light;
+  font: 17px/1.6 var(--body);
+  color: var(--ink);
+  background: var(--paper);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+p {
+  margin: 0;
+  max-width: var(--measure);
+}
+
+a {
+  color: var(--lagoon-deep);
+  text-underline-offset: 3px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

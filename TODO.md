@@ -7,10 +7,10 @@
 - [ ] Add education, degree, institution, and expected graduation details.
 - [ ] Add professional contact information.
 - [ ] Add LinkedIn and other relevant professional links.
-- [ ] Choose the portfolio technology and project structure.
-- [ ] Build the home page with a clear introduction and call to action.
-- [ ] Add an About Me section.
-- [ ] Add a Skills section with technologies and tools.
+- [x] Choose the portfolio technology and project structure.
+- [x] Build the home page with a clear introduction and call to action.
+- [x] Add an About Me section.
+- [x] Add a Skills section with technologies and tools.
 - [ ] Add a Projects section with screenshots, descriptions, technologies, and links.
 - [ ] Add a downloadable CV or resume.
 
@@ -29,8 +29,8 @@
 ## Design and User Experience
 
 - [ ] Create a consistent color palette and typography system.
-- [ ] Make the portfolio responsive on mobile, tablet, and desktop screens.
-- [ ] Add clear navigation between portfolio sections.
+- [x] Make the portfolio responsive on mobile, tablet, and desktop screens.
+- [x] Add clear navigation between portfolio sections.
 - [ ] Add accessible labels, keyboard navigation, and sufficient color contrast.
 - [ ] Add project cards with clear actions.
 - [ ] Add subtle animations without reducing usability.
@@ -39,8 +39,8 @@
 ## Technical Improvements
 
 - [ ] Add reusable components.
-- [ ] Add form validation to the contact section.
-- [ ] Add a contact form or mail link.
+- [x] Add form validation to the contact section.
+- [x] Add a contact form or mail link.
 - [ ] Add SEO metadata and social sharing metadata.
 - [ ] Add a custom 404 page.
 - [ ] Add loading and error states where needed.
