@@ -5,8 +5,8 @@
 - [x] Add a professional profile photo or avatar.
 - [x] Write a concise personal introduction.
 - [ ] Add education, degree, institution, and expected graduation details. (blocked: needs real facts)
-- [ ] Add professional contact information. (blocked: needs real email)
-- [ ] Add LinkedIn and other relevant professional links. (blocked: needs real URL)
+- [x] Add professional contact information.
+- [x] Add LinkedIn and other relevant professional links.
 - [x] Choose the portfolio technology and project structure.
 - [x] Build the home page with a clear introduction and call to action.
 - [x] Add an About Me section.

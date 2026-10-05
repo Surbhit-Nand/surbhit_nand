@@ -206,6 +206,17 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    // Every fresh entry starts at home; the visitor scrolls from there.
+    // Project and admin deep links (#/…) keep working untouched.
+    if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
+    const entry = window.location.hash;
+    if (!entry.startsWith('#/')) {
+      if (entry) window.history.replaceState(null, '', window.location.pathname);
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
+  useEffect(() => {
     const onKey = (event) => {
       if (event.key === 'Escape') setNavOpen(false);
     };
@@ -479,8 +490,10 @@ export default function App() {
           title="Say hello"
         >
           <p>
-            GitHub: <a href="https://github.com/Surbhitnand001">@Surbhitnand001</a>. LinkedIn and
-            professional email are added on request — use the form and it validates before sending.
+            GitHub: <a href="https://github.com/Surbhit-Nand">@Surbhit-Nand</a>. LinkedIn:{' '}
+            <a href="https://www.linkedin.com/in/surbhit-nand">surbhit-nand</a>. Prefer email?{' '}
+            <a href="mailto:surbhitnand@gmail.com">surbhitnand@gmail.com</a> — or use the form below
+            and it validates before sending.
           </p>
           <ContactForm />
         </Section>

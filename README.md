@@ -64,9 +64,9 @@ I am continuing to improve my software engineering skills by building complete a
 
 ## Contact
 
-- GitHub: [@Surbhitnand001](https://github.com/Surbhitnand001)
-- LinkedIn: Add your LinkedIn profile here
-- Email: Add your professional email here
+- GitHub: [@Surbhit-Nand](https://github.com/Surbhit-Nand)
+- LinkedIn: [surbhit-nand](https://www.linkedin.com/in/surbhit-nand)
+- Email: [surbhitnand@gmail.com](mailto:surbhitnand@gmail.com)
 
 ## Status
 
