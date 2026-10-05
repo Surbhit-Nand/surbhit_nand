@@ -2,63 +2,63 @@
 
 ## High Priority
 
-- [ ] Add a professional profile photo or avatar.
-- [ ] Write a concise personal introduction.
-- [ ] Add education, degree, institution, and expected graduation details.
-- [ ] Add professional contact information.
-- [ ] Add LinkedIn and other relevant professional links.
+- [x] Add a professional profile photo or avatar.
+- [x] Write a concise personal introduction.
+- [ ] Add education, degree, institution, and expected graduation details. (blocked: needs real facts)
+- [ ] Add professional contact information. (blocked: needs real email)
+- [ ] Add LinkedIn and other relevant professional links. (blocked: needs real URL)
 - [x] Choose the portfolio technology and project structure.
 - [x] Build the home page with a clear introduction and call to action.
 - [x] Add an About Me section.
 - [x] Add a Skills section with technologies and tools.
-- [ ] Add a Projects section with screenshots, descriptions, technologies, and links.
-- [ ] Add a downloadable CV or resume.
+- [ ] Add a Projects section with screenshots, descriptions, technologies, and links. (partial: descriptions, tech, links done; screenshots need real images)
+- [ ] Add a downloadable CV or resume. (blocked: needs the real file)
 
 ## Project Documentation
 
-- [ ] Add screenshots for the E-Commerce project.
-- [ ] Add a short case study for the E-Commerce project.
-- [ ] Add screenshots for the IS314 Computing Project.
-- [ ] Add a short case study for the Central Buses project.
-- [ ] Add the Weather Forecast project.
-- [ ] Add links to live deployments where available.
-- [ ] Explain my contribution to collaborative projects.
-- [ ] Document important technical decisions and challenges.
-- [ ] Add lessons learned and future improvements for each featured project.
+- [ ] Add screenshots for the E-Commerce project. (blocked: needs real images)
+- [x] Add a short case study for the E-Commerce project.
+- [ ] Add screenshots for the IS314 Computing Project. (blocked: needs real images)
+- [x] Add a short case study for the Central Buses project.
+- [x] Add the Weather Forecast project.
+- [x] Add links to live deployments where available.
+- [x] Explain my contribution to collaborative projects.
+- [x] Document important technical decisions and challenges.
+- [x] Add lessons learned and future improvements for each featured project.
 
 ## Design and User Experience
 
-- [ ] Create a consistent color palette and typography system.
+- [x] Create a consistent color palette and typography system.
 - [x] Make the portfolio responsive on mobile, tablet, and desktop screens.
 - [x] Add clear navigation between portfolio sections.
-- [ ] Add accessible labels, keyboard navigation, and sufficient color contrast.
-- [ ] Add project cards with clear actions.
-- [ ] Add subtle animations without reducing usability.
-- [ ] Add a favicon and portfolio branding.
+- [x] Add accessible labels, keyboard navigation, and sufficient color contrast.
+- [x] Add project cards with clear actions.
+- [x] Add subtle animations without reducing usability.
+- [x] Add a favicon and portfolio branding.
 
 ## Technical Improvements
 
-- [ ] Add reusable components.
+- [x] Add reusable components.
 - [x] Add form validation to the contact section.
 - [x] Add a contact form or mail link.
-- [ ] Add SEO metadata and social sharing metadata.
-- [ ] Add a custom 404 page.
-- [ ] Add loading and error states where needed.
-- [ ] Add automated formatting and linting.
-- [ ] Add tests for important functionality.
-- [ ] Configure continuous integration with GitHub Actions.
-- [ ] Deploy the portfolio.
+- [x] Add SEO metadata and social sharing metadata.
+- [x] Add a custom 404 page.
+- [x] Add loading and error states where needed.
+- [x] Add automated formatting and linting.
+- [x] Add tests for important functionality.
+- [x] Configure continuous integration with GitHub Actions.
+- [ ] Deploy the portfolio. (blocked: needs a Vercel/hosting step)
 - [ ] Add a custom domain if appropriate.
 
 ## Content and Reflection
 
-- [ ] Add academic achievements and relevant coursework.
-- [ ] Add work experience, volunteering, or extracurricular activities.
-- [ ] Write a reflection on my development as a software engineer.
-- [ ] Describe how I approach teamwork and collaboration.
-- [ ] Describe how I solve problems and debug applications.
-- [ ] Add future career goals.
-- [ ] Review all content for spelling, grammar, and clarity.
+- [ ] Add academic achievements and relevant coursework. (blocked: needs real facts)
+- [ ] Add work experience, volunteering, or extracurricular activities. (blocked: needs real facts)
+- [ ] Write a reflection on my development as a software engineer. (blocked: needs your words)
+- [ ] Describe how I approach teamwork and collaboration. (blocked: needs your words)
+- [x] Describe how I solve problems and debug applications.
+- [ ] Add future career goals. (blocked: needs your words)
+- [x] Review all content for spelling, grammar, and clarity.
 
 ## Final Review
 

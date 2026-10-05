@@ -70,4 +70,19 @@ I am continuing to improve my software engineering skills by building complete a
 
 ## Status
 
-This portfolio is currently under development. See [TODO.md](TODO.md) for planned improvements.
+The portfolio site is built with Vite + React and lives in this repo
+(`src/`, `index.html`, `package.json`). See [TODO.md](TODO.md) for what is
+done and what still needs real content (photos, screenshots, CV, links).
+
+- Live URL: not deployed yet — add it here after the first deploy.
+- Verify: `npm run format:check && npm run lint && npm test && npm run build`
+- CI runs the same checks on every push (`.github/workflows/ci.yml`).
+
+## Running the site
+
+- `npm install`, then `npm run dev` (usually http://localhost:5173/).
+- Project pages: `#/project/<slug>` (e.g. `#/project/e-commerce`).
+- Hidden admin: `#/admin` — no link points to it. First visit sets a
+  browser-local PIN; add repos and Google Photos image addresses
+  (right-click a photo, "Copy image address"), Save preview, Export JSON,
+  paste into `src/data/projects.js`, redeploy to publish.

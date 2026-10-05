@@ -1,6 +1,9 @@
 # AGENTS.md
 
-Vite + React portfolio (chosen by owner). Commands: `npm run dev`, `npm run build`, `npm run lint` (oxlint). No tests, CI, or backend.
+Vite + React portfolio (chosen by owner). Commands: `npm run dev`,
+`npm run build`, `npm run lint` (oxlint), `npm run format:check`
+(prettier), `npm test` (vitest). CI (`.github/workflows/ci.yml`) runs
+format + lint + test + build on push/PR. No backend.
 
 ## Sources of truth
 
@@ -27,7 +30,9 @@ Vite + React portfolio (chosen by owner). Commands: `npm run dev`, `npm run buil
 - Hidden admin at `#/admin` (hash route, no router dep). No link points to it; it sets `noindex` + a separate title at runtime. First visit sets a browser-local PIN (SHA-256, localStorage only, never in the bundle); later visits verify it.
 - Admin saves to localStorage for instant preview only. To publish for all visitors: Export JSON in admin → paste into `src/data/projects.js` → `npm run build` → deploy. There is no backend yet; `src/admin/store.js` is the single swap point if one is added later.
 - Images are URL strings, not uploads. Require Google Photos **direct** image addresses (`lh3.googleusercontent.com/…` via right-click → Copy image address); album/share links will not render. `checkImageUrl` in `store.js` warns on these; gallery drops failed loads via `onError` fallback.
-- Each dossier has a `View details` toggle (`aria-expanded`) revealing contribution, case study, and gallery (lead image + thumbnail row). Keep new projects in the same shape so the strict TODO order holds: only check a screenshot/case-study box once its real content exists.
+- Each project has a separate detail page at `#/project/<slug>` (`src/ProjectDetail.jsx`): write-up + gallery + prev/next links; unknown slugs render a not-found panel, and any other `#/...` route renders the site-wide 404 (`SiteNotFound`). Home dossiers link there with a thumbnail preview of the first gallery image.
+- Shared components: `Section`, `Gallery`, `Dossier`, `ContactForm` (+ `validateContact` in `src/contactValidate.js`, unit-tested), `ErrorBoundary` (mounted in `main.jsx`). Admin pieces live in `src/admin/`.
+- Shared gallery component lives in `src/Gallery.jsx`. Keep new projects in the same shape so the strict TODO order holds: only check a screenshot/case-study box once its real content exists.
 
 ## Guardrails
 

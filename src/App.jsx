@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import { projects as seedProjects } from './data/projects.js'
-import { loadProjects } from './admin/store.js'
-import Admin from './admin/Admin.jsx'
+import { useEffect, useState } from 'react';
+import './App.css';
+import { projects as seedProjects } from './data/projects.js';
+import { loadProjects } from './admin/store.js';
+import { validateContact } from './contactValidate.js';
+import Admin from './admin/Admin.jsx';
+import ProjectDetail, { ProjectNotFound, SiteNotFound } from './ProjectDetail.jsx';
 
 const skillGroups = [
   { name: 'Languages', items: 'JavaScript, TypeScript, Python, Java' },
@@ -14,42 +16,41 @@ const skillGroups = [
   { name: 'Tools', items: 'Git, GitHub, GitHub Actions, Vite, Vercel' },
   {
     name: 'Practices',
-    items:
-      'Agile development, debugging, refactoring, documentation, collaborative development',
+    items: 'Agile development, debugging, refactoring, documentation, collaborative development',
   },
-]
+];
 
 function useHashRoute() {
-  const [hash, setHash] = useState(() => window.location.hash)
+  const [hash, setHash] = useState(() => window.location.hash);
   useEffect(() => {
-    const onChange = () => setHash(window.location.hash)
-    window.addEventListener('hashchange', onChange)
-    return () => window.removeEventListener('hashchange', onChange)
-  }, [])
-  return hash
+    const onChange = () => setHash(window.location.hash);
+    window.addEventListener('hashchange', onChange);
+    return () => window.removeEventListener('hashchange', onChange);
+  }, []);
+  return hash;
+}
+
+function Section({ id, labelledBy, kicker, title, children }) {
+  return (
+    <section className="block" id={id} aria-labelledby={labelledBy}>
+      <p className="kicker">{kicker}</p>
+      <h2 id={labelledBy}>{title}</h2>
+      {children}
+    </section>
+  );
 }
 
 function ContactForm() {
-  const [values, setValues] = useState({ name: '', email: '', message: '' })
-  const [errors, setErrors] = useState({})
-  const [sent, setSent] = useState(false)
-
-  function validate(next) {
-    const nextErrors = {}
-    if (next.name.trim().length < 2) nextErrors.name = 'Enter your name.'
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(next.email.trim()))
-      nextErrors.email = 'Enter a valid email address.'
-    if (next.message.trim().length < 10)
-      nextErrors.message = 'Write at least a sentence (10+ characters).'
-    return nextErrors
-  }
+  const [values, setValues] = useState({ name: '', email: '', message: '' });
+  const [errors, setErrors] = useState({});
+  const [sent, setSent] = useState(false);
 
   function onSubmit(event) {
-    event.preventDefault()
-    const nextErrors = validate(values)
-    setErrors(nextErrors)
+    event.preventDefault();
+    const nextErrors = validateContact(values);
+    setErrors(nextErrors);
     if (Object.keys(nextErrors).length === 0) {
-      setSent(true)
+      setSent(true);
     }
   }
 
@@ -97,62 +98,16 @@ function ContactForm() {
       </button>
       {sent && (
         <p className="sent">
-          Message validated. Wire this form to your inbox or mail link before
-          release.
+          Message validated. Wire this form to your inbox or mail link before release.
         </p>
       )}
     </form>
-  )
-}
-
-function Gallery({ gallery, projectName }) {
-  const [lead, setLead] = useState(0)
-  const [failed, setFailed] = useState({})
-  if (!gallery.length) return null
-  const visible = gallery.filter((_, i) => !failed[i])
-  if (!visible.length)
-    return <p className="note">Images could not be loaded — check the image URLs.</p>
-  const current = visible[Math.min(lead, visible.length - 1)]
-  const currentIndex = gallery.indexOf(current)
-
-  return (
-    <div className="gallery">
-      <figure className="gallery-lead">
-        <img src={current.src} alt={current.alt || `${projectName} screenshot`} loading="lazy" />
-        {current.caption && <figcaption>{current.caption}</figcaption>}
-      </figure>
-      {visible.length > 1 && (
-        <div className="thumb-row" role="list">
-          {visible.map((g) => {
-            const i = gallery.indexOf(g)
-            return (
-              <button
-                key={i}
-                type="button"
-                role="listitem"
-                aria-label={`Show image ${i + 1}${g.caption ? `: ${g.caption}` : ''}`}
-                aria-current={i === currentIndex}
-                className="thumb"
-                onClick={() => setLead(i)}
-              >
-                <img
-                  src={g.src}
-                  alt=""
-                  loading="lazy"
-                  onError={() => setFailed((f) => ({ ...f, [i]: true }))}
-                />
-              </button>
-            )
-          })}
-        </div>
-      )}
-    </div>
-  )
+  );
 }
 
 function Dossier({ project }) {
-  const [open, setOpen] = useState(false)
-  const id = `detail-${project.slug}`
+  const count = (project.gallery || []).length;
+  const preview = (project.gallery || [])[0];
 
   return (
     <article className="dossier">
@@ -169,15 +124,19 @@ function Dossier({ project }) {
               <strong>Lesson:</strong> {project.lessons}
             </li>
           </ul>
-          <button
-            type="button"
-            className="btn btn-line btn-small detail-toggle"
-            aria-expanded={open}
-            aria-controls={id}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? 'Hide details' : 'View details'}
-          </button>
+          {preview ? (
+            <a className="dossier-thumb" href={`#/project/${project.slug}`}>
+              <img src={preview.src} alt="" loading="lazy" />
+              <span>
+                {count} screenshot{count === 1 ? '' : 's'} — open the write-up
+              </span>
+            </a>
+          ) : (
+            <p className="note">Screenshots coming soon — tracked in TODO.md.</p>
+          )}
+          <a className="btn btn-line btn-small detail-toggle" href={`#/project/${project.slug}`}>
+            View details
+          </a>
         </div>
         <div className="dossier-side">
           <div className="links">
@@ -191,77 +150,72 @@ function Dossier({ project }) {
           </p>
         </div>
       </div>
-      {open && (
-        <div className="dossier-detail" id={id}>
-          {(project.contribution || project.caseStudy) && (
-            <div className="detail-text">
-              {project.contribution && (
-                <p>
-                  <strong>My contribution:</strong> {project.contribution}
-                </p>
-              )}
-              {project.caseStudy && (
-                <p>
-                  <strong>Case study:</strong> {project.caseStudy}
-                </p>
-              )}
-            </div>
-          )}
-          <Gallery gallery={project.gallery || []} projectName={project.name} />
-          {!(project.gallery || []).length && (
-            <p className="note">Screenshots coming soon — tracked in TODO.md.</p>
-          )}
-        </div>
-      )}
     </article>
-  )
+  );
 }
 
 function setNoIndex(on) {
-  const id = 'robots-noindex'
-  let tag = document.getElementById(id)
+  const id = 'robots-noindex';
+  let tag = document.getElementById(id);
   if (on && !tag) {
-    tag = document.createElement('meta')
-    tag.id = id
-    tag.name = 'robots'
-    tag.content = 'noindex, nofollow'
-    document.head.appendChild(tag)
+    tag = document.createElement('meta');
+    tag.id = id;
+    tag.name = 'robots';
+    tag.content = 'noindex, nofollow';
+    document.head.appendChild(tag);
   } else if (!on && tag) {
-    tag.remove()
+    tag.remove();
   }
 }
 
 export default function App() {
-  const hash = useHashRoute()
-  const isAdmin = hash.startsWith('#/admin')
+  const hash = useHashRoute();
+  const isAdmin = hash.startsWith('#/admin');
+  const [navOpen, setNavOpen] = useState(() => window.innerWidth > 900);
   const [projects, setProjects] = useState(() => {
     try {
-      return loadProjects()
+      return loadProjects();
     } catch {
-      return seedProjects
+      return seedProjects;
     }
-  })
+  });
 
   useEffect(() => {
-    setNoIndex(isAdmin)
-    document.title = isAdmin ? 'Admin — Surbhit Nand' : 'Surbhit Nand — E-Portfolio'
-  }, [isAdmin])
+    setNoIndex(isAdmin);
+    if (isAdmin) document.title = 'Admin — Surbhit Nand';
+    else if (!hash.startsWith('#/project/')) document.title = 'Surbhit Nand — E-Portfolio';
+  }, [isAdmin, hash]);
 
   useEffect(() => {
-    // Reload after leaving admin so freshly saved local edits show. This runs
-    // on the hash event, not on render, so it is not a render cascade.
-    const onAdminExit = (event) => {
-      if (!event.newURL.includes('#/admin')) {
+    // Reload after leaving admin so freshly saved local edits show, and
+    // scroll home views to top. Section anchors (#about, …) keep native
+    // jump behavior. Runs on the hash event, not on render.
+    const onRouteChange = (event) => {
+      const nextHash = new URL(event.newURL).hash;
+      if (!nextHash.startsWith('#/admin')) {
         try {
-          setProjects(loadProjects())
+          setProjects(loadProjects());
         } catch {
           /* keep current */
         }
       }
-    }
-    window.addEventListener('hashchange', onAdminExit)
-    return () => window.removeEventListener('hashchange', onAdminExit)
-  }, [])
+      if (nextHash === '' || nextHash === '#/') window.scrollTo(0, 0);
+    };
+    window.addEventListener('hashchange', onRouteChange);
+    return () => window.removeEventListener('hashchange', onRouteChange);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (event) => {
+      if (event.key === 'Escape') setNavOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  function closeNavOnMobile() {
+    if (window.innerWidth <= 900) setNavOpen(false);
+  }
 
   if (isAdmin) {
     return (
@@ -269,20 +223,72 @@ export default function App() {
         <Admin
           initial={projects}
           onExit={() => {
-            window.location.hash = '#/'
+            window.location.hash = '#/';
           }}
         />
       </div>
-    )
+    );
+  }
+
+  if (hash.startsWith('#/project/')) {
+    const slug = hash.replace('#/project/', '').split(/[?#]/)[0];
+    const index = projects.findIndex((p) => p.slug === slug);
+    if (index === -1) {
+      return (
+        <div className="shell shell-detail">
+          <ProjectNotFound />
+        </div>
+      );
+    }
+    const project = projects[index];
+    return (
+      <div className="shell shell-detail">
+        <ProjectDetail
+          project={project}
+          prev={index > 0 ? projects[index - 1] : null}
+          next={index < projects.length - 1 ? projects[index + 1] : null}
+        />
+      </div>
+    );
+  }
+
+  if (hash.startsWith('#/') && !isAdmin && !hash.startsWith('#/project/')) {
+    return (
+      <div className="shell shell-detail">
+        <SiteNotFound />
+      </div>
+    );
   }
 
   return (
-    <div className="shell">
-      <aside className="rail" aria-label="Portfolio index">
+    <div className={navOpen ? 'shell nav-open' : 'shell'}>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <button
+        type="button"
+        className="nav-toggle"
+        aria-expanded={navOpen}
+        aria-controls="site-rail"
+        aria-label={navOpen ? 'Close navigation' : 'Open navigation'}
+        onClick={() => setNavOpen((v) => !v)}
+      >
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        className="scrim"
+        aria-label="Close navigation"
+        tabIndex={navOpen ? 0 : -1}
+        onClick={() => setNavOpen(false)}
+      />
+      <aside className="rail" id="site-rail" aria-label="Portfolio index">
         <div className="wordmark">
           Surbhit Nand<span>Computing student · full-stack systems</span>
         </div>
-        <nav aria-label="Sections">
+        <nav aria-label="Sections" onClick={closeNavOnMobile}>
           <a href="#home">Home</a>
           <a href="#about">About</a>
           <a href="#skills">Skills</a>
@@ -294,14 +300,40 @@ export default function App() {
         <p className="status">Under development — see TODO.md for the checklist.</p>
       </aside>
 
-      <main className="main">
+      <main className="main" id="main-content">
         <header className="hero" id="home">
-          <h1>I build working software, then write down what I learned.</h1>
-          <p className="lede">
-            Computing student focused on full-stack development, databases, and
-            authentication. Four shipped projects below — each with real repos,
-            decisions, and lessons.
-          </p>
+          <div className="hero-top">
+            <div
+              className="portrait-swap"
+              tabIndex={0}
+              role="img"
+              aria-label="Portrait of Surbhit Nand — hover or focus to see another photo"
+            >
+              <img
+                className="portrait portrait-base"
+                src="/profile.jpg"
+                alt=""
+                width="480"
+                height="640"
+                loading="eager"
+              />
+              <img
+                className="portrait portrait-alt"
+                src="/Profile2.png"
+                alt=""
+                width="181"
+                height="190"
+                loading="eager"
+              />
+            </div>
+            <div>
+              <h1>I build working software, then write down what I learned.</h1>
+              <p className="lede">
+                Computing student focused on full-stack development, databases, and authentication.
+                Four shipped projects below — each with real repos, decisions, and lessons.
+              </p>
+            </div>
+          </div>
           <div className="cta-row">
             <a className="btn btn-solid" href="#projects">
               View projects
@@ -340,15 +372,17 @@ export default function App() {
           </div>
         </header>
 
-        <section className="block" id="about" aria-labelledby="about-h">
-          <p className="kicker">About me and education</p>
-          <h2 id="about-h">Practical applications, documented as I go</h2>
+        <Section
+          id="about"
+          labelledBy="about-h"
+          kicker="About me and education"
+          title="Practical applications, documented as I go"
+        >
           <p>
-            I am Surbhit Nand, a computing student interested in full-stack
-            development, software engineering, databases, and authentication.
-            This portfolio is where I document my learning journey, showcase
-            selected work, and reflect on the skills I build through coursework
-            and independent projects.
+            I am Surbhit Nand, a computing student interested in full-stack development, software
+            engineering, databases, and authentication. This portfolio is where I document my
+            learning journey, showcase selected work, and reflect on the skills I build through
+            coursework and independent projects.
           </p>
           <div className="two-col">
             <article>
@@ -358,16 +392,19 @@ export default function App() {
             <article>
               <h3>How I work</h3>
               <p>
-                Build complete applications, keep code maintainable, debug
-                systematically, and write down decisions and lessons learned.
+                Build complete applications, keep code maintainable, debug systematically, and write
+                down decisions and lessons learned.
               </p>
             </article>
           </div>
-        </section>
+        </Section>
 
-        <section className="block" id="skills" aria-labelledby="skills-h">
-          <p className="kicker">Technical skills</p>
-          <h2 id="skills-h">The stack I reach for</h2>
+        <Section
+          id="skills"
+          labelledBy="skills-h"
+          kicker="Technical skills"
+          title="The stack I reach for"
+        >
           <div className="skill-groups">
             {skillGroups.map((group) => (
               <article key={group.name}>
@@ -376,23 +413,29 @@ export default function App() {
               </article>
             ))}
           </div>
-        </section>
+        </Section>
 
-        <section className="block" id="projects" aria-labelledby="projects-h">
-          <p className="kicker">Featured projects</p>
-          <h2 id="projects-h">Four systems, each with a paper trail</h2>
+        <Section
+          id="projects"
+          labelledBy="projects-h"
+          kicker="Featured projects"
+          title="Four systems, each with a paper trail"
+        >
           <p>
-            Every project links to its repository. Live deployments are linked
-            where they exist; open a dossier for the case study and screenshots.
+            Every project links to its repository. Live deployments are linked where they exist;
+            open a dossier for the case study and screenshots.
           </p>
           {projects.map((project) => (
             <Dossier key={project.slug} project={project} />
           ))}
-        </section>
+        </Section>
 
-        <section className="block" id="coursework" aria-labelledby="course-h">
-          <p className="kicker">Achievements and experience</p>
-          <h2 id="course-h">Coursework, work, and life outside code</h2>
+        <Section
+          id="coursework"
+          labelledBy="course-h"
+          kicker="Achievements and experience"
+          title="Coursework, work, and life outside code"
+        >
           <div className="two-col">
             <article>
               <h3>Academic achievements and coursework</h3>
@@ -403,47 +446,50 @@ export default function App() {
               <p>Roles, volunteering, and collaboration — to be added.</p>
             </article>
           </div>
-        </section>
+        </Section>
 
-        <section className="block" id="reflection" aria-labelledby="refl-h">
-          <p className="kicker">Reflections and lessons learned</p>
-          <h2 id="refl-h">How I debug, collaborate, and improve</h2>
+        <Section
+          id="reflection"
+          labelledBy="refl-h"
+          kicker="Reflections and lessons learned"
+          title="How I debug, collaborate, and improve"
+        >
           <div className="two-col">
             <article>
               <h3>Problem solving</h3>
               <p>
-                Reproduce first, narrow the scope, check the data layer, then
-                the auth layer — and write the fix down so it stays fixed.
+                Reproduce first, narrow the scope, check the data layer, then the auth layer — and
+                write the fix down so it stays fixed.
               </p>
             </article>
             <article>
               <h3>Teamwork and goals</h3>
               <p>
-                Still writing: collaboration style, career goals, and per-project
-                retrospectives. Tracked in TODO.md under Content and Reflection.
+                Still writing: collaboration style, career goals, and per-project retrospectives.
+                Tracked in TODO.md under Content and Reflection.
               </p>
             </article>
           </div>
-        </section>
+        </Section>
 
-        <section className="block" id="contact" aria-labelledby="contact-h">
-          <p className="kicker">Contact and professional links</p>
-          <h2 id="contact-h">Say hello</h2>
+        <Section
+          id="contact"
+          labelledBy="contact-h"
+          kicker="Contact and professional links"
+          title="Say hello"
+        >
           <p>
-            GitHub:{' '}
-            <a href="https://github.com/Surbhitnand001">@Surbhitnand001</a>.
-            LinkedIn and professional email are added on request — use the form
-            and it validates before sending.
+            GitHub: <a href="https://github.com/Surbhitnand001">@Surbhitnand001</a>. LinkedIn and
+            professional email are added on request — use the form and it validates before sending.
           </p>
           <ContactForm />
-        </section>
+        </Section>
 
         <footer className="colophon">
-          Built with Vite + React. Design: harbour ledger — ink, lagoon, and
-          signal amber. One validated form, one animated board pulse, nothing
-          else moves on its own.
+          Built with Vite + React. Design: harbour ledger — ink, lagoon, and signal amber. One
+          validated form, one animated board pulse, nothing else moves on its own.
         </footer>
       </main>
     </div>
-  )
+  );
 }

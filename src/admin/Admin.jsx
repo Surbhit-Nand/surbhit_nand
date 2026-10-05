@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   checkImageUrl,
   clearLocalOverride,
@@ -8,7 +8,7 @@ import {
   saveProjectsLocal,
   setPin,
   verifyPin,
-} from './store.js'
+} from './store.js';
 
 const blankProject = () => ({
   slug: `project-${Date.now()}`,
@@ -22,40 +22,40 @@ const blankProject = () => ({
   repo: '',
   live: '',
   gallery: [],
-})
+});
 
 function slugify(text) {
   return text
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '')
-    .slice(0, 60)
+    .slice(0, 60);
 }
 
 function PinGate({ onUnlock }) {
-  const [pin, setPinValue] = useState('')
-  const [confirm, setConfirm] = useState('')
-  const [error, setError] = useState('')
-  const setup = !hasPin()
+  const [pin, setPinValue] = useState('');
+  const [confirm, setConfirm] = useState('');
+  const [error, setError] = useState('');
+  const setup = !hasPin();
 
   async function submit(event) {
-    event.preventDefault()
-    setError('')
+    event.preventDefault();
+    setError('');
     if (pin.length < 6) {
-      setError('PIN must be at least 6 characters.')
-      return
+      setError('PIN must be at least 6 characters.');
+      return;
     }
     if (setup) {
       if (pin !== confirm) {
-        setError('PINs do not match.')
-        return
+        setError('PINs do not match.');
+        return;
       }
-      await setPin(pin)
-      onUnlock()
+      await setPin(pin);
+      onUnlock();
     } else if (await verifyPin(pin)) {
-      onUnlock()
+      onUnlock();
     } else {
-      setError('Wrong PIN.')
+      setError('Wrong PIN.');
     }
   }
 
@@ -92,12 +92,12 @@ function PinGate({ onUnlock }) {
         {setup ? 'Set PIN' : 'Unlock'}
       </button>
     </form>
-  )
+  );
 }
 
 function GalleryEditor({ gallery, onChange }) {
   function update(index, field, value) {
-    onChange(gallery.map((g, i) => (i === index ? { ...g, [field]: value } : g)))
+    onChange(gallery.map((g, i) => (i === index ? { ...g, [field]: value } : g)));
   }
 
   return (
@@ -108,7 +108,7 @@ function GalleryEditor({ gallery, onChange }) {
         lh3.googleusercontent.com/… Album or share links will not display.
       </p>
       {gallery.map((g, i) => {
-        const warning = g.src ? checkImageUrl(g.src) : ''
+        const warning = g.src ? checkImageUrl(g.src) : '';
         return (
           <div className="gallery-row" key={i}>
             <label>
@@ -147,7 +147,7 @@ function GalleryEditor({ gallery, onChange }) {
               Remove image
             </button>
           </div>
-        )
+        );
       })}
       <button
         type="button"
@@ -157,12 +157,12 @@ function GalleryEditor({ gallery, onChange }) {
         Add image
       </button>
     </div>
-  )
+  );
 }
 
 function ProjectForm({ project, onChange }) {
   function set(field, value) {
-    onChange({ ...project, [field]: value })
+    onChange({ ...project, [field]: value });
   }
 
   const fields = [
@@ -170,7 +170,7 @@ function ProjectForm({ project, onChange }) {
     ['tech', 'Technologies'],
     ['repo', 'Repository URL'],
     ['live', 'Live demo URL (optional)'],
-  ]
+  ];
 
   return (
     <div className="project-form">
@@ -180,15 +180,18 @@ function ProjectForm({ project, onChange }) {
           <input
             value={project[field]}
             onChange={(e) => {
-              const value = e.target.value
+              const value = e.target.value;
               if (field === 'name') {
-                const auto = slugify(value)
+                const auto = slugify(value);
                 onChange({
                   ...project,
                   name: value,
-                  slug: project.slug.startsWith('project-') || !project.slug ? auto || project.slug : project.slug,
-                })
-              } else set(field, value)
+                  slug:
+                    project.slug.startsWith('project-') || !project.slug
+                      ? auto || project.slug
+                      : project.slug,
+                });
+              } else set(field, value);
             }}
           />
         </label>
@@ -207,25 +210,25 @@ function ProjectForm({ project, onChange }) {
       ))}
       <GalleryEditor gallery={project.gallery} onChange={(g) => set('gallery', g)} />
     </div>
-  )
+  );
 }
 
 export default function Admin({ initial, onExit }) {
-  const [unlocked, setUnlocked] = useState(false)
-  const [list, setList] = useState(initial)
-  const [selected, setSelected] = useState(0)
-  const [saved, setSaved] = useState(false)
-  const [exportOpen, setExportOpen] = useState(false)
-  const [copied, setCopied] = useState(false)
+  const [unlocked, setUnlocked] = useState(false);
+  const [list, setList] = useState(initial);
+  const [selected, setSelected] = useState(0);
+  const [saved, setSaved] = useState(false);
+  const [exportOpen, setExportOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  if (!unlocked) return <PinGate onUnlock={() => setUnlocked(true)} />
+  if (!unlocked) return <PinGate onUnlock={() => setUnlocked(true)} />;
 
-  const current = list[selected]
+  const current = list[selected];
 
   function save() {
-    saveProjectsLocal(list)
-    setSaved(true)
-    setTimeout(() => setSaved(false), 2500)
+    saveProjectsLocal(list);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
   }
 
   return (
@@ -253,8 +256,8 @@ export default function Admin({ initial, onExit }) {
       </header>
       {saved && (
         <p className="sent" role="status">
-          Saved in this browser. Export the JSON below and paste it into
-          src/data/projects.js to publish.
+          Saved in this browser. Export the JSON below and paste it into src/data/projects.js to
+          publish.
         </p>
       )}
       {exportOpen && (
@@ -266,9 +269,9 @@ export default function Admin({ initial, onExit }) {
               type="button"
               onClick={async () => {
                 try {
-                  await navigator.clipboard.writeText(exportProjectsJSON(list))
-                  setCopied(true)
-                  setTimeout(() => setCopied(false), 2000)
+                  await navigator.clipboard.writeText(exportProjectsJSON(list));
+                  setCopied(true);
+                  setTimeout(() => setCopied(false), 2000);
                 } catch {
                   /* clipboard unavailable */
                 }
@@ -280,8 +283,8 @@ export default function Admin({ initial, onExit }) {
               className="btn btn-line btn-small"
               type="button"
               onClick={() => {
-                clearLocalOverride()
-                onExit()
+                clearLocalOverride();
+                onExit();
               }}
             >
               Discard local edits
@@ -305,8 +308,8 @@ export default function Admin({ initial, onExit }) {
             type="button"
             className="add-btn"
             onClick={() => {
-              setList([...list, blankProject()])
-              setSelected(list.length)
+              setList([...list, blankProject()]);
+              setSelected(list.length);
             }}
           >
             + Add project
@@ -322,9 +325,9 @@ export default function Admin({ initial, onExit }) {
               type="button"
               className="btn btn-line btn-small danger"
               onClick={() => {
-                if (list.length <= 1) return
-                setList(list.filter((_, i) => i !== selected))
-                setSelected(0)
+                if (list.length <= 1) return;
+                setList(list.filter((_, i) => i !== selected));
+                setSelected(0);
               }}
             >
               Delete project
@@ -333,5 +336,5 @@ export default function Admin({ initial, onExit }) {
         )}
       </div>
     </div>
-  )
+  );
 }

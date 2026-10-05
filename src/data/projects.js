@@ -51,8 +51,7 @@ export const projects = [
     slug: 'weather-forecast',
     name: 'Weather Forecast',
     tech: 'JavaScript, web interface, forecast API',
-    summary:
-      'Simple web interface that displays forecast information for a chosen location.',
+    summary: 'Simple web interface that displays forecast information for a chosen location.',
     decisions: 'Kept the UI thin so the forecast data stays the focus.',
     lessons: 'Deployment link and write-up still to come.',
     contribution: 'Interface and forecast API integration.',
@@ -62,4 +61,4 @@ export const projects = [
     live: '',
     gallery: [],
   },
-]
+];
