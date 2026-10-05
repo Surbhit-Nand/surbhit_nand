@@ -4,16 +4,19 @@
 export const projects = [
   {
     slug: 'e-commerce',
-    name: 'E-Commerce Application',
-    tech: 'TypeScript, React, database integration, authentication',
+    name: 'IslandCart — E-Commerce Platform',
+    tech: 'React, TypeScript frontend · Node.js/Express backend · PostgreSQL (Neon)',
     summary:
-      'Full-stack store with customer and vendor roles: browsing, carts, wishlists, notes, and database-backed user data.',
-    decisions: 'Separate customer and vendor flows backed by one user store.',
-    lessons: 'Case study and screenshots still to come (TODO: Project Documentation).',
-    contribution: 'Solo build: storefront, cart and wishlist state, auth wiring.',
+      'Full-stack store with customer and vendor roles: browsing, carts, wishlists, notes, CRUD product flows, and database-backed user data.',
+    decisions:
+      'Migrated storage from flat JSON files to relational PostgreSQL to normalise product data and enable SQL reporting; vendor ownership checks plus role-based access control on every product mutation.',
+    lessons:
+      'Relational modelling paid off the moment reporting queries arrived; RBAC must live at the query level, not just in hidden UI.',
+    contribution:
+      'Solo build: storefront, cart and wishlist state, CRUD product flows with vendor ownership checks, auth and RBAC wiring.',
     caseStudy:
-      'Problem: one storefront serving two roles without leaking vendor tools to customers. Approach: role checks at the route and query level. Challenge: keeping cart state consistent across sessions.',
-    repo: 'https://github.com/Surbhitnand001/E-Commerce',
+      'Problem: one storefront serving customers and vendors without leaking vendor tools. Approach: JSON files first for speed, then PostgreSQL on Neon with referential integrity; role checks at route and query level. Challenge: keeping cart state consistent across sessions after the migration.',
+    repo: 'https://github.com/Surbhit-Nand/E-Commerce',
     live: 'https://e-commerce-island-cart.vercel.app',
     gallery: [],
   },
@@ -43,7 +46,25 @@ export const projects = [
     contribution: 'Routing, live-tracking view, ticket and wallet flows.',
     caseStudy:
       'Problem: plan a trip, track the bus, and pay in one flow. Approach: route-first navigation with the wallet as payment source of truth. Challenge: ticket state when tracking updates arrive mid-purchase.',
-    repo: 'https://github.com/Surbhitnand001/Central-Buses',
+    repo: 'https://github.com/Surbhit-Nand/Central-Buses',
+    live: '',
+    gallery: [],
+  },
+  {
+    slug: 'tcp-file-transfer',
+    name: 'TCP-Based File Transfer',
+    tech: 'Python, socket programming, TCP, binary protocols',
+    summary:
+      'Chunked binary file transfer over TCP with progress tracking and error handling for reliable, resumable transfers.',
+    decisions:
+      'Chunked framing with per-chunk acknowledgement so interrupted transfers resume instead of restarting.',
+    lessons:
+      'Protocol edge cases live at the boundaries: partial reads, disconnects mid-chunk, and mismatched file sizes.',
+    contribution:
+      'Solo build: transfer protocol, chunking, progress reporting, and error handling.',
+    caseStudy:
+      'Problem: move binary files reliably over raw TCP. Approach: fixed-size chunks with acknowledgements and progress tracking. Challenge: resuming cleanly after a dropped connection without corrupting the output file.',
+    repo: 'https://github.com/Surbhit-Nand/TCP_FileTransfer',
     live: '',
     gallery: [],
   },
@@ -57,7 +78,7 @@ export const projects = [
     contribution: 'Interface and forecast API integration.',
     caseStudy:
       'Problem: readable forecast with minimum chrome. Approach: thin UI over the forecast API. Challenge: empty and error states for unknown locations.',
-    repo: 'https://github.com/Surbhitnand001/Weather-Forecast',
+    repo: 'https://github.com/Surbhit-Nand/Weather-Forecast',
     live: '',
     gallery: [],
   },

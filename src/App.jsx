@@ -7,16 +7,19 @@ import Admin from './admin/Admin.jsx';
 import ProjectDetail, { ProjectNotFound, SiteNotFound } from './ProjectDetail.jsx';
 
 const skillGroups = [
-  { name: 'Languages', items: 'JavaScript, TypeScript, Python, Java' },
+  { name: 'Languages', items: 'Java, Python, TypeScript, JavaScript, PowerShell' },
   { name: 'Frontend', items: 'React, HTML, CSS, responsive UI development' },
   {
     name: 'Backend and data',
-    items: 'APIs, authentication, databases, server-side application logic',
+    items: 'Node.js, Express, PostgreSQL, Neon, Drizzle ORM, APIs, authentication, Clerk',
   },
-  { name: 'Tools', items: 'Git, GitHub, GitHub Actions, Vite, Vercel' },
+  {
+    name: 'Tools',
+    items: 'Git, GitHub, GitHub Actions, Vite, Vercel, Postman, Figma, JUnit 5, Selenium',
+  },
   {
     name: 'Practices',
-    items: 'Agile development, debugging, refactoring, documentation, collaborative development',
+    items: 'Agile/Scrum, debugging, refactoring, documentation, testing, collaborative development',
   },
 ];
 
@@ -341,7 +344,7 @@ export default function App() {
               <h1>I build working software, then write down what I learned.</h1>
               <p className="lede">
                 Computing student focused on full-stack development, databases, and authentication.
-                Four shipped projects below — each with real repos, decisions, and lessons.
+                Five shipped projects below — each with real repos, decisions, and lessons.
               </p>
             </div>
           </div>
@@ -351,6 +354,9 @@ export default function App() {
             </a>
             <a className="btn btn-line" href="#contact">
               Get in touch
+            </a>
+            <a className="btn btn-line" href="/Surbhit_Nand_CV.pdf" download>
+              Download CV
             </a>
           </div>
 
@@ -376,6 +382,10 @@ export default function App() {
                 <small>Tracking · tickets · wallet</small>
               </div>
               <div className="cell">
+                <b>Transfer</b>
+                <small>Sockets · chunks · resume</small>
+              </div>
+              <div className="cell">
                 <b>Weather</b>
                 <small>Forecast · simple UI</small>
               </div>
@@ -398,7 +408,10 @@ export default function App() {
           <div className="two-col">
             <article>
               <h3>Education</h3>
-              <p>Degree, institution, and expected graduation — to be added.</p>
+              <p>
+                Bachelor of Software Engineering, University of the South Pacific (USP), Suva —
+                expected 2027.
+              </p>
             </article>
             <article>
               <h3>How I work</h3>
@@ -430,7 +443,7 @@ export default function App() {
           id="projects"
           labelledBy="projects-h"
           kicker="Featured projects"
-          title="Four systems, each with a paper trail"
+          title="Five systems, each with a paper trail"
         >
           <p>
             Every project links to its repository. Live deployments are linked where they exist;
@@ -450,11 +463,19 @@ export default function App() {
           <div className="two-col">
             <article>
               <h3>Academic achievements and coursework</h3>
-              <p>Relevant modules and achievements — to be added.</p>
+              <p>
+                IS333: led a group hospital-management project as Project Manager / Scrum Master —
+                WBS of ~37 activities, PERT, Activity-on-Node diagram, responsibility matrix, and a
+                working-day-aware Gantt chart. CS310: designed a campus network in Cisco Packet
+                Tracer (VLSM, OSPF, NAT, ACLs, wireless).
+              </p>
             </article>
             <article>
               <h3>Work experience and extracurriculars</h3>
-              <p>Roles, volunteering, and collaboration — to be added.</p>
+              <p>
+                USP PASS Leader and tutor (Aug–Nov 2025); Support Admin at Vinod Patel &amp; Co.
+                (Jan–Feb 2024); Sales Representative at JD Stationery (Nov 2023–Jan 2024).
+              </p>
             </article>
           </div>
         </Section>
@@ -474,10 +495,29 @@ export default function App() {
               </p>
             </article>
             <article>
-              <h3>Teamwork and goals</h3>
+              <h3>Teamwork</h3>
               <p>
-                Still writing: collaboration style, career goals, and per-project retrospectives.
-                Tracked in TODO.md under Content and Reflection.
+                As a USP PASS Leader I translated technical material into clear explanations for
+                mixed-ability groups; as Scrum Master on the IS333 hospital project I kept delivery
+                coordinated with a shared work breakdown, responsibility matrix, and Gantt chart.
+                Collaboration, to me, means shared plans plus plain explanations.
+              </p>
+            </article>
+            <article>
+              <h3>Growth</h3>
+              <p>
+                I came to software engineering through retail and admin work, where accurate records
+                and clear customer explanations mattered. That carried over: I now build complete
+                systems, debug from the data layer outward, and write each decision down — this
+                portfolio is that habit made visible.
+              </p>
+            </article>
+            <article>
+              <h3>Career goals</h3>
+              <p>
+                Graduate with a Bachelor of Software Engineering from USP in 2027, then keep
+                shipping full-stack systems with real users — going deeper on backends, databases,
+                and the disciplined teamwork that group projects taught me.
               </p>
             </article>
           </div>
@@ -492,9 +532,14 @@ export default function App() {
           <p>
             GitHub: <a href="https://github.com/Surbhit-Nand">@Surbhit-Nand</a>. LinkedIn:{' '}
             <a href="https://www.linkedin.com/in/surbhit-nand">surbhit-nand</a>. Prefer email?{' '}
-            <a href="mailto:surbhitnand@gmail.com">surbhitnand@gmail.com</a> — or use the form below
-            and it validates before sending.
+            <a href="mailto:surbhitnand@gmail.com">surbhitnand@gmail.com</a> · Phone: 8005657 — or
+            use the form below and it validates before sending.
           </p>
+          <div className="cta-row">
+            <a className="btn btn-line" href="/Surbhit_Nand_CV.pdf" download>
+              Download CV
+            </a>
+          </div>
           <ContactForm />
         </Section>
 

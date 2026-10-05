@@ -10,13 +10,13 @@ This portfolio is a central place to document my learning journey, showcase sele
 
 ## Featured Projects
 
-### E-Commerce Application
+### IslandCart — E-Commerce Platform
 
-A full-stack e-commerce platform with customer and vendor functionality, including product browsing, carts, wishlists, notes, authentication, and database-backed user data.
+A full-stack e-commerce platform with customer and vendor functionality, including product browsing, carts, wishlists, notes, CRUD product flows with vendor ownership checks, role-based access control, and authentication. Migrated from flat JSON storage to PostgreSQL (Neon).
 
-- Repository: [E-Commerce](https://github.com/Surbhitnand001/E-Commerce)
+- Repository: [E-Commerce](https://github.com/Surbhit-Nand/E-Commerce)
 - Live demo: [E-Commerce Island Cart](https://e-commerce-island-cart.vercel.app)
-- Technologies: TypeScript, React, database integration, authentication
+- Technologies: React, TypeScript, Node.js/Express, PostgreSQL (Neon)
 
 ### Computing Project Dashboard
 
@@ -29,22 +29,29 @@ A project involving authenticated dashboards and role-based functionality for di
 
 A transport-focused application supporting navigation, live tracking, ticket purchasing, and wallet payments.
 
-- Repository: [Central-Buses](https://github.com/Surbhitnand001/Central-Buses)
+- Repository: [Central-Buses](https://github.com/Surbhit-Nand/Central-Buses)
 - Technologies: JavaScript, application routing, payment and wallet features
 
 ### Weather Forecast
 
 A weather application that displays forecast information through a simple web interface.
 
-- Repository: [Weather-Forecast](https://github.com/Surbhitnand001/Weather-Forecast)
+- Repository: [Weather-Forecast](https://github.com/Surbhit-Nand/Weather-Forecast)
+
+### TCP-Based File Transfer
+
+A Python socket-programming application for chunked binary file transfer with progress tracking and error handling for reliable, resumable transfers over TCP.
+
+- Repository: [TCP_FileTransfer](https://github.com/Surbhit-Nand/TCP_FileTransfer)
+- Technologies: Python, sockets, TCP, binary protocols
 
 ## Skills
 
-- **Languages:** JavaScript, TypeScript, Python, Java
+- **Languages:** Java, Python, TypeScript, JavaScript, PowerShell
 - **Frontend:** React, HTML, CSS, responsive UI development
-- **Backend and data:** APIs, authentication, databases, server-side application logic
-- **Tools:** Git, GitHub, GitHub Actions, Vite, Vercel
-- **Practices:** Agile development, debugging, refactoring, documentation, collaborative development
+- **Backend and data:** Node.js, Express, PostgreSQL, Neon, Drizzle ORM, APIs, authentication, Clerk
+- **Tools:** Git, GitHub, GitHub Actions, Vite, Vercel, Postman, Figma, JUnit 5, Selenium
+- **Practices:** Agile/Scrum development, debugging, refactoring, documentation, testing, collaborative development
 
 ## Portfolio Sections
 
@@ -86,3 +93,4 @@ done and what still needs real content (photos, screenshots, CV, links).
   browser-local PIN; add repos and Google Photos image addresses
   (right-click a photo, "Copy image address"), Save preview, Export JSON,
   paste into `src/data/projects.js`, redeploy to publish.
+- CV: `public/Surbhit_Nand_CV.pdf`, linked from the hero and contact section.

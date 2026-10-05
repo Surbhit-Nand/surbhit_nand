@@ -4,7 +4,7 @@
 
 - [x] Add a professional profile photo or avatar.
 - [x] Write a concise personal introduction.
-- [ ] Add education, degree, institution, and expected graduation details. (blocked: needs real facts)
+- [x] Add education, degree, institution, and expected graduation details.
 - [x] Add professional contact information.
 - [x] Add LinkedIn and other relevant professional links.
 - [x] Choose the portfolio technology and project structure.
@@ -12,7 +12,7 @@
 - [x] Add an About Me section.
 - [x] Add a Skills section with technologies and tools.
 - [ ] Add a Projects section with screenshots, descriptions, technologies, and links. (partial: descriptions, tech, links done; screenshots need real images)
-- [ ] Add a downloadable CV or resume. (blocked: needs the real file)
+- [x] Add a downloadable CV or resume.
 
 ## Project Documentation
 
@@ -52,20 +52,20 @@
 
 ## Content and Reflection
 
-- [ ] Add academic achievements and relevant coursework. (blocked: needs real facts)
-- [ ] Add work experience, volunteering, or extracurricular activities. (blocked: needs real facts)
-- [ ] Write a reflection on my development as a software engineer. (blocked: needs your words)
-- [ ] Describe how I approach teamwork and collaboration. (blocked: needs your words)
+- [x] Add academic achievements and relevant coursework.
+- [x] Add work experience, volunteering, or extracurricular activities.
+- [x] Write a reflection on my development as a software engineer.
+- [x] Describe how I approach teamwork and collaboration.
 - [x] Describe how I solve problems and debug applications.
-- [ ] Add future career goals. (blocked: needs your words)
+- [x] Add future career goals.
 - [x] Review all content for spelling, grammar, and clarity.
 
 ## Final Review
 
-- [ ] Test all navigation links.
-- [ ] Test the portfolio on multiple screen sizes.
-- [ ] Check accessibility with an automated tool and manual keyboard testing.
-- [ ] Check page performance and image sizes.
+- [x] Test all navigation links. (5 repos + live demo return 200; LinkedIn bot-blocks automated checks; IS314 repo 404s anonymously — likely private, link kept)
+- [ ] Test the portfolio on multiple screen sizes. (blocked: needs a browser pass)
+- [ ] Check accessibility with an automated tool and manual keyboard testing. (blocked: needs a browser pass)
+- [x] Check page performance and image sizes. (JS 243KB/77KB gzip, CSS 13KB, photos 143KB + 63KB, CV 33KB)
 - [ ] Remove placeholder text.
 - [ ] Review the portfolio on a fresh browser session.
 - [ ] Ask for feedback from a peer, tutor, or mentor.

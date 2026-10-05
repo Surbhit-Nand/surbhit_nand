@@ -297,7 +297,7 @@
 
 .board .rows {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .board .cell {
@@ -938,7 +938,7 @@ footer.colophon {
     grid-template-columns: 1fr 1fr;
   }
 
-  .board .cell:nth-child(2) {
+  .board .cell:nth-child(even) {
     border-right: none;
   }
 
