@@ -735,11 +735,7 @@ section.block h2 {
   padding: 0.7rem 0.9rem;
 }
 
-/* Separate project detail page: single column, reading measure. */
-.shell-detail {
-  grid-template-columns: 1fr;
-}
-
+/* Separate project detail page: narrower reading measure, same grid. */
 .shell-detail .main {
   max-width: 880px;
   margin: 0 auto;
@@ -835,6 +831,14 @@ section.block h2 {
   background: var(--card);
   border-radius: 6px;
   padding: 1rem 1.1rem;
+}
+
+.two-col article ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.4rem;
+  color: #2c3e48;
 }
 
 .contact-form {

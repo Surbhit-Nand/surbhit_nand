@@ -17,14 +17,13 @@ export default function Gallery({ gallery, projectName }) {
         {current.caption && <figcaption>{current.caption}</figcaption>}
       </figure>
       {visible.length > 1 && (
-        <div className="thumb-row" role="list">
+        <div className="thumb-row" role="group" aria-label={`${projectName} screenshots`}>
           {visible.map((g) => {
             const i = gallery.indexOf(g);
             return (
               <button
                 key={i}
                 type="button"
-                role="listitem"
                 aria-label={`Show image ${i + 1}${g.caption ? `: ${g.caption}` : ''}`}
                 aria-current={i === currentIndex}
                 className="thumb"

@@ -143,8 +143,14 @@ function Dossier({ project }) {
         </div>
         <div className="dossier-side">
           <div className="links">
-            <a href={project.repo}>Repository</a>
-            {project.live && <a href={project.live}>Live demo</a>}
+            <a href={project.repo} target="_blank" rel="noreferrer">
+              Repository
+            </a>
+            {project.live && (
+              <a href={project.live} target="_blank" rel="noreferrer">
+                Live demo
+              </a>
+            )}
           </div>
           <p className="note">
             {project.live
@@ -169,6 +175,50 @@ function setNoIndex(on) {
   } else if (!on && tag) {
     tag.remove();
   }
+}
+
+function SiteNav({ navOpen, setNavOpen, closeNavOnMobile }) {
+  return (
+    <>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <button
+        type="button"
+        className="nav-toggle"
+        aria-expanded={navOpen}
+        aria-controls="site-rail"
+        aria-label={navOpen ? 'Close navigation' : 'Open navigation'}
+        onClick={() => setNavOpen((v) => !v)}
+      >
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+        <span aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        className="scrim"
+        aria-label="Close navigation"
+        tabIndex={navOpen ? 0 : -1}
+        onClick={() => setNavOpen(false)}
+      />
+      <aside className="rail" id="site-rail" aria-label="Portfolio index">
+        <div className="wordmark">
+          Surbhit Nand<span>Computing student · full-stack systems</span>
+        </div>
+        <nav aria-label="Sections" onClick={closeNavOnMobile}>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#coursework">Coursework</a>
+          <a href="#reflection">Reflections</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <p className="status">Under development — see TODO.md for the checklist.</p>
+      </aside>
+    </>
+  );
 }
 
 export default function App() {
@@ -245,18 +295,20 @@ export default function App() {
   }
 
   if (hash.startsWith('#/project/')) {
-    const slug = hash.replace('#/project/', '').split(/[?#]/)[0];
+    const slug = hash.replace('#/project/', '').split(/[?#]/)[0].replace(/\/+$/, '').toLowerCase();
     const index = projects.findIndex((p) => p.slug === slug);
     if (index === -1) {
       return (
-        <div className="shell shell-detail">
+        <div className={navOpen ? 'shell shell-detail nav-open' : 'shell shell-detail'}>
+          <SiteNav navOpen={navOpen} setNavOpen={setNavOpen} closeNavOnMobile={closeNavOnMobile} />
           <ProjectNotFound />
         </div>
       );
     }
     const project = projects[index];
     return (
-      <div className="shell shell-detail">
+      <div className={navOpen ? 'shell shell-detail nav-open' : 'shell shell-detail'}>
+        <SiteNav navOpen={navOpen} setNavOpen={setNavOpen} closeNavOnMobile={closeNavOnMobile} />
         <ProjectDetail
           project={project}
           prev={index > 0 ? projects[index - 1] : null}
@@ -268,7 +320,8 @@ export default function App() {
 
   if (hash.startsWith('#/') && !isAdmin && !hash.startsWith('#/project/')) {
     return (
-      <div className="shell shell-detail">
+      <div className={navOpen ? 'shell shell-detail nav-open' : 'shell shell-detail'}>
+        <SiteNav navOpen={navOpen} setNavOpen={setNavOpen} closeNavOnMobile={closeNavOnMobile} />
         <SiteNotFound />
       </div>
     );
@@ -276,43 +329,7 @@ export default function App() {
 
   return (
     <div className={navOpen ? 'shell nav-open' : 'shell'}>
-      <a className="skip-link" href="#main-content">
-        Skip to content
-      </a>
-      <button
-        type="button"
-        className="nav-toggle"
-        aria-expanded={navOpen}
-        aria-controls="site-rail"
-        aria-label={navOpen ? 'Close navigation' : 'Open navigation'}
-        onClick={() => setNavOpen((v) => !v)}
-      >
-        <span aria-hidden="true" />
-        <span aria-hidden="true" />
-        <span aria-hidden="true" />
-      </button>
-      <button
-        type="button"
-        className="scrim"
-        aria-label="Close navigation"
-        tabIndex={navOpen ? 0 : -1}
-        onClick={() => setNavOpen(false)}
-      />
-      <aside className="rail" id="site-rail" aria-label="Portfolio index">
-        <div className="wordmark">
-          Surbhit Nand<span>Computing student · full-stack systems</span>
-        </div>
-        <nav aria-label="Sections" onClick={closeNavOnMobile}>
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#coursework">Coursework</a>
-          <a href="#reflection">Reflections</a>
-          <a href="#contact">Contact</a>
-        </nav>
-        <p className="status">Under development — see TODO.md for the checklist.</p>
-      </aside>
+      <SiteNav navOpen={navOpen} setNavOpen={setNavOpen} closeNavOnMobile={closeNavOnMobile} />
 
       <main className="main" id="main-content">
         <header className="hero" id="home">
@@ -463,19 +480,22 @@ export default function App() {
           <div className="two-col">
             <article>
               <h3>Academic achievements and coursework</h3>
-              <p>
-                IS333: led a group hospital-management project as Project Manager / Scrum Master —
-                WBS of ~37 activities, PERT, Activity-on-Node diagram, responsibility matrix, and a
-                working-day-aware Gantt chart. CS310: designed a campus network in Cisco Packet
-                Tracer (VLSM, OSPF, NAT, ACLs, wireless).
-              </p>
+              <ul>
+                <li>IS333 hospital-management group project — Project Manager / Scrum Master</li>
+                <li>Work breakdown of ~37 activities, PERT table, Activity-on-Node diagram</li>
+                <li>Responsibility matrix and working-day-aware Gantt chart</li>
+                <li>
+                  CS310 campus network in Cisco Packet Tracer — VLSM, OSPF, NAT, ACLs, wireless
+                </li>
+              </ul>
             </article>
             <article>
               <h3>Work experience and extracurriculars</h3>
-              <p>
-                USP PASS Leader and tutor (Aug–Nov 2025); Support Admin at Vinod Patel &amp; Co.
-                (Jan–Feb 2024); Sales Representative at JD Stationery (Nov 2023–Jan 2024).
-              </p>
+              <ul>
+                <li>USP PASS Leader and tutor — Aug to Nov 2025</li>
+                <li>Support Admin, Vinod Patel &amp; Co. — Jan to Feb 2024</li>
+                <li>Sales Representative, JD Stationery — Nov 2023 to Jan 2024</li>
+              </ul>
             </article>
           </div>
         </Section>

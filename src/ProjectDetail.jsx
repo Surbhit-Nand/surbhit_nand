@@ -11,8 +11,8 @@ export default function ProjectDetail({ project, prev, next }) {
   }, [project]);
 
   return (
-    <main className="main detail">
-      <a className="btn btn-line btn-small" href="#/">
+    <main className="main detail" id="main-content">
+      <a className="btn btn-line btn-small" href="#projects">
         Back to projects
       </a>
       <p className="kicker">Project detail</p>
@@ -22,11 +22,11 @@ export default function ProjectDetail({ project, prev, next }) {
       <p className="lede">{project.summary}</p>
       <p className="tech">{project.tech}</p>
       <div className="cta-row">
-        <a className="btn btn-solid" href={project.repo}>
+        <a className="btn btn-solid" href={project.repo} target="_blank" rel="noreferrer">
           Repository
         </a>
         {project.live && (
-          <a className="btn btn-line" href={project.live}>
+          <a className="btn btn-line" href={project.live} target="_blank" rel="noreferrer">
             Live demo
           </a>
         )}
@@ -88,7 +88,7 @@ export function ProjectNotFound() {
   }, []);
 
   return (
-    <main className="main detail">
+    <main className="main detail" id="main-content">
       <h1>Project not found</h1>
       <p>That project slug does not match anything in the portfolio.</p>
       <a className="btn btn-solid" href="#projects">
@@ -105,7 +105,7 @@ export function SiteNotFound() {
   }, []);
 
   return (
-    <main className="main detail">
+    <main className="main detail" id="main-content">
       <p className="kicker">404</p>
       <h1>Nothing at this address</h1>
       <p>
